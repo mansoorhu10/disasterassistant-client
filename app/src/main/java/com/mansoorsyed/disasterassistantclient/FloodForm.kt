@@ -22,7 +22,6 @@ class FloodForm : AppCompatActivity() {
 
         initializeComponents()
     }
-
     private fun initializeComponents() {
         var inputEditName : TextInputEditText = findViewById(R.id.form_textFieldName);
         var inputEditLocation : TextInputEditText = findViewById(R.id.form_textFieldLocation);
