@@ -26,6 +26,6 @@ class FloodAdapter(floodList: List<Flood?>?) : RecyclerView.Adapter<FloodHolder>
     }
 
     override fun getItemCount(): Int {
-        return floodList?.size!!;
+        return floodList!!.size;
     }
 }

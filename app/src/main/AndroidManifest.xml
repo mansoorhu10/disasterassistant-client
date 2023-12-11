@@ -15,7 +15,7 @@
         android:theme="@style/Theme.DisasterAssistantClient"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.mansoorsyed.disasterassistantclient.FloodListActivity"
+            android:name="com.mansoorsyed.disasterassistantclient.AuthenticationPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,11 +24,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.mansoorsyed.disasterassistantclient.FloodListActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:name="com.mansoorsyed.disasterassistantclient.FloodForm"
             android:exported="true"
             android:label="Create New Flood"
-            android:theme="@style/Theme.DisasterAssistantClient"
-            android:parentActivityName="com.mansoorsyed.disasterassistantclient.FloodListActivity">
+            android:parentActivityName="com.mansoorsyed.disasterassistantclient.FloodListActivity"
+            android:theme="@style/Theme.DisasterAssistantClient">
         </activity>
     </application>
 
