@@ -9,11 +9,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.disasterassistantclient.R
 import com.google.android.material.textfield.TextInputEditText
+import com.google.gson.JsonObject
+import com.mansoorsyed.disasterassistantclient.model.Token
 import com.mansoorsyed.disasterassistantclient.model.UserLogin
 import com.mansoorsyed.disasterassistantclient.retrofit.AuthApi
 import com.mansoorsyed.disasterassistantclient.retrofit.RetroFitService
 import retrofit2.Call
 import retrofit2.Response
+import java.util.Objects
 import java.util.logging.Level
 import java.util.logging.Logger
 
@@ -40,12 +43,20 @@ class LoginFragment : Fragment() {
             userLogin.password = inputEditPassword?.text.toString();
 
             authApi?.login(userLogin)
-                ?.enqueue(object : retrofit2.Callback<String?> {
-                    override fun onResponse(call: Call<String?>, response: Response<String?>) {
-                        Toast.makeText(context, "Login successful!", Toast.LENGTH_SHORT).show()
+                ?.enqueue(object : retrofit2.Callback<Token?> {
+                    override fun onResponse(call: Call<Token?>, response: Response<Token?>) {
+                        if (response.code() != 200) {
+                            Toast.makeText(context, "Login failed!", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(
+                                context,
+                                response.body()?.token.toString(),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
                     }
 
-                    override fun onFailure(call: Call<String?>, t: Throwable) {
+                    override fun onFailure(call: Call<Token?>, t: Throwable) {
                         Toast.makeText(context, "Login failed!!!", Toast.LENGTH_SHORT)
                             .show()
                         Logger.getLogger(AuthenticationPage::class.java.name)

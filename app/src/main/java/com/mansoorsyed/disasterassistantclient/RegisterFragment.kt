@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import com.example.disasterassistantclient.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import com.google.gson.JsonObject
+import com.mansoorsyed.disasterassistantclient.model.Token
 import com.mansoorsyed.disasterassistantclient.model.UserRegister
 import com.mansoorsyed.disasterassistantclient.retrofit.AuthApi
 import com.mansoorsyed.disasterassistantclient.retrofit.RetroFitService
@@ -37,25 +39,30 @@ class RegisterFragment : Fragment() {
         var authApi = retrofitService.retroFit?.create(AuthApi::class.java);
 
         registerButton.setOnClickListener { view ->
-            if (inputEditPassword !== inputEditRepassword) {
+            if (inputEditPassword?.text.toString() != inputEditRepassword?.text.toString()) {
                 Toast.makeText(context, "Register failed, password does not match!", Toast.LENGTH_SHORT)
                     .show()
                 Logger.getLogger(AuthenticationPage::class.java.name)
                     .log(Level.SEVERE, "Error occurred", Throwable(message = "Register failed, password does not match!"))
             } else {
                 var userRegister : UserRegister = UserRegister();
-                userRegister.name = inputEditName?.text.toString();
+                userRegister.firstname = inputEditName?.text.toString().split(" ")[0];
+                userRegister.lastname = inputEditName?.text.toString().split(" ")[1];
                 userRegister.email  = inputEditEmail?.text.toString();
                 userRegister.password = inputEditPassword?.text.toString();
 
                 authApi?.register(userRegister)
-                    ?.enqueue(object : retrofit2.Callback<String?> {
-                        override fun onResponse(call: Call<String?>, response: Response<String?>) {
-                            Toast.makeText(context, "Register successful!", Toast.LENGTH_SHORT)
-                                .show()
+                    ?.enqueue(object : retrofit2.Callback<Token?> {
+                        override fun onResponse(call: Call<Token?>, response: Response<Token?>) {
+                            if (response.code() != 200) {
+                                Toast.makeText(context, "Login failed!", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(context, "Register successful!", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                         }
 
-                        override fun onFailure(call: Call<String?>, t: Throwable) {
+                        override fun onFailure(call: Call<Token?>, t: Throwable) {
                             Toast.makeText(context, "Register failed!!!", Toast.LENGTH_SHORT)
                                 .show()
                             Logger.getLogger(AuthenticationPage::class.java.name)
@@ -63,7 +70,6 @@ class RegisterFragment : Fragment() {
                         }
                     })
             }
-
         };
         return view;
     }
