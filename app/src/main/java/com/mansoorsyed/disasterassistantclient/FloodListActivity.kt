@@ -36,7 +36,7 @@ class FloodListActivity : AppCompatActivity() {
     }
 
     private fun loadFloods() {
-        var retrofitService : RetroFitService = RetroFitService();
+        var retrofitService : RetroFitService = RetroFitService(this@FloodListActivity);
         var floodApi = retrofitService.retroFit?.create<FloodApi>(FloodApi::class.java);
         floodApi?.allFloods
             ?.enqueue(object : retrofit2.Callback<List<Flood?>?> {

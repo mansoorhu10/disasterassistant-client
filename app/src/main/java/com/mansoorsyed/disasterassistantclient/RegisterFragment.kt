@@ -35,7 +35,7 @@ class RegisterFragment : Fragment() {
         var inputEditPassword : TextInputEditText? = view.findViewById(R.id.et_password);
         var inputEditRepassword : TextInputEditText? = view.findViewById(R.id.et_repassword);
 
-        var retrofitService : RetroFitService =  RetroFitService();
+        var retrofitService : RetroFitService =  RetroFitService(requireContext());
         var authApi = retrofitService.retroFit?.create(AuthApi::class.java);
 
         registerButton.setOnClickListener { view ->
@@ -55,7 +55,7 @@ class RegisterFragment : Fragment() {
                     ?.enqueue(object : retrofit2.Callback<Token?> {
                         override fun onResponse(call: Call<Token?>, response: Response<Token?>) {
                             if (response.code() != 200) {
-                                Toast.makeText(context, "Login failed!", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "Register failed!", Toast.LENGTH_SHORT).show()
                             } else {
                                 Toast.makeText(context, "Register successful!", Toast.LENGTH_SHORT)
                                     .show()

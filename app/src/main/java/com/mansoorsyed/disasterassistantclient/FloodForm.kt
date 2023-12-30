@@ -28,7 +28,7 @@ class FloodForm : AppCompatActivity() {
         var inputEditMagnitude : TextInputEditText = findViewById(R.id.form_textFieldMagnitude);
         var buttonSave : MaterialButton = findViewById(R.id.form_buttonSave);
 
-        var retrofitService : RetroFitService =  RetroFitService()
+        var retrofitService : RetroFitService =  RetroFitService(this@FloodForm)
         var floodApi = retrofitService.retroFit?.create<FloodApi>(FloodApi::class.java)
 
         buttonSave.setOnClickListener { view ->
