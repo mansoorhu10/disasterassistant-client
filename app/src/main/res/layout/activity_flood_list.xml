@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.DisasterAssistantClient"
     tools:context="com.mansoorsyed.disasterassistantclient.FloodListActivity">
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/floodList_recyclerView"
@@ -12,6 +14,8 @@
         android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:backgroundTint="@color/blue"
+        android:color="@color/blue"
         android:id="@+id/floodList_fab"
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"

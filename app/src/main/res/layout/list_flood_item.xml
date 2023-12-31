@@ -12,18 +12,17 @@
         android:layout_margin="20dp"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/floodListItem_location"
+        android:textColor="#C2C2C2"
         android:text="@string/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:textSize="16sp"
-        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/floodListItem_name"
         android:paddingBottom="20dp"/>
@@ -31,6 +30,7 @@
     <TextView
         android:id="@+id/floodListItem_magnitude"
         android:text="@string/magnitude"
+        android:textColor="#C2C2C2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
