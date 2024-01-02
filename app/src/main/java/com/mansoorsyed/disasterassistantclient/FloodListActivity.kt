@@ -41,11 +41,19 @@ class FloodListActivity : AppCompatActivity() {
         floodApi?.allFloods
             ?.enqueue(object : retrofit2.Callback<List<Flood?>?> {
                 override fun onResponse(call: Call<List<Flood?>?>, response: Response<List<Flood?>?>) {
-                    populateListView(response.body());
+
+                    if (response.code() == 200){
+                        populateListView(response.body());
+                    } else {
+                        Toast.makeText(this@FloodListActivity, "Failed to load floods!", Toast.LENGTH_SHORT)
+                            .show()
+                        val intent = Intent(this@FloodListActivity, LoginFragment::class.java)
+                        startActivity(intent)
+                    }
                 }
 
                 override fun onFailure(call: Call<List<Flood?>?>, t: Throwable) {
-                    Toast.makeText(this@FloodListActivity, "Failed to load floods", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@FloodListActivity, "Failed to load floods!!!", Toast.LENGTH_SHORT)
                         .show()
                 }
             });

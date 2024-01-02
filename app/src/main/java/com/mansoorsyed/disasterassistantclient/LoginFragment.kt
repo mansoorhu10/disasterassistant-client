@@ -11,9 +11,11 @@ import androidx.fragment.app.Fragment
 import com.example.disasterassistantclient.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.JsonObject
+import com.mansoorsyed.disasterassistantclient.model.Flood
 import com.mansoorsyed.disasterassistantclient.model.Token
 import com.mansoorsyed.disasterassistantclient.model.UserLogin
 import com.mansoorsyed.disasterassistantclient.retrofit.AuthApi
+import com.mansoorsyed.disasterassistantclient.retrofit.FloodApi
 import com.mansoorsyed.disasterassistantclient.retrofit.RetroFitService
 import com.mansoorsyed.disasterassistantclient.retrofit.SessionManager
 import retrofit2.Call
@@ -34,6 +36,7 @@ class LoginFragment : Fragment() {
         var loginButton: Button = view.findViewById(R.id.btn_login);
         var sessionManager : SessionManager? = context?.let { SessionManager(it) };
 
+        checkLogin(sessionManager)
         var inputEditEmail: TextInputEditText? = view.findViewById(R.id.et_email);
         var inputEditPassword: TextInputEditText? = view.findViewById(R.id.et_password);
 
@@ -75,5 +78,31 @@ class LoginFragment : Fragment() {
                 })
         };
         return view;
+    }
+
+    private fun checkLogin(sessionManager: SessionManager?) {
+        var retrofitService : RetroFitService? = context?.let { RetroFitService(it) };
+        var floodApi = retrofitService?.retroFit?.create<FloodApi>(FloodApi::class.java);
+        floodApi?.allFloods
+            ?.enqueue(object : retrofit2.Callback<List<Flood?>?> {
+                override fun onResponse(call: Call<List<Flood?>?>, response: Response<List<Flood?>?>) {
+                    if (response.code() == 200){
+                        val intent = Intent(context, FloodListActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(context, "Previous Token Expired", Toast.LENGTH_SHORT)
+                            .show()
+
+                        sessionManager?.clearAuthToken();
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Flood?>?>, t: Throwable) {
+                    Toast.makeText(context, "Previous Token Expired", Toast.LENGTH_SHORT)
+                        .show()
+                    sessionManager?.clearAuthToken();
+                }
+            });
+
     }
 }

@@ -18,6 +18,12 @@ class SessionManager(context: Context) {
         editor?.apply()
     }
 
+    fun clearAuthToken() {
+        val editor = prefs.edit()
+        editor?.clear()
+        editor?.apply()
+    }
+
     // fetching auth token
     fun getAuthToken(): String? {
         return prefs.getString(USER_TOKEN, null)
