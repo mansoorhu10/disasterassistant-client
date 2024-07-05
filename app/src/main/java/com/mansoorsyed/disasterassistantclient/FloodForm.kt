@@ -13,6 +13,7 @@ import java.util.logging.Level
 import java.util.logging.Logger
 import retrofit2.Call
 import retrofit2.Response
+import java.lang.Double.parseDouble
 
 
 class FloodForm : AppCompatActivity() {
@@ -24,7 +25,8 @@ class FloodForm : AppCompatActivity() {
     }
     private fun initializeComponents() {
         var inputEditName : TextInputEditText = findViewById(R.id.form_textFieldName);
-        var inputEditLocation : TextInputEditText = findViewById(R.id.form_textFieldLocation);
+        var inputEditLongitude : TextInputEditText = findViewById(R.id.form_textFieldLongitude);
+        var inputEditLatitude : TextInputEditText = findViewById(R.id.form_textFieldLatitude);
         var inputEditMagnitude : TextInputEditText = findViewById(R.id.form_textFieldMagnitude);
         var buttonSave : MaterialButton = findViewById(R.id.form_buttonSave);
 
@@ -32,13 +34,15 @@ class FloodForm : AppCompatActivity() {
         var floodApi = retrofitService.retroFit?.create<FloodApi>(FloodApi::class.java)
 
         buttonSave.setOnClickListener { view ->
-            var name : String = inputEditName.getText().toString();
-            var location : String = inputEditLocation.getText().toString();
-            var magnitude : Int = Integer.parseInt(inputEditMagnitude.getText().toString());
+            var name : String = inputEditName.text.toString();
+            var longitude : Double = parseDouble(inputEditLongitude.text.toString());
+            var latitude : Double = parseDouble(inputEditLatitude.text.toString());
+            var magnitude : Int = Integer.parseInt(inputEditMagnitude.text.toString());
 
             var flood : Flood = Flood();
             flood.name = name;
-            flood.location = location;
+            flood.longitude = longitude;
+            flood.latitude = latitude;
             flood.magnitude = magnitude;
 
             floodApi?.save(flood)

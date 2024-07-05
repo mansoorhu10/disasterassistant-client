@@ -21,7 +21,8 @@ class FloodAdapter(floodList: List<Flood?>?) : RecyclerView.Adapter<FloodHolder>
     override fun onBindViewHolder(holder: FloodHolder, position: Int) {
         var flood : Flood? = floodList?.get(position);
         holder.getName()?.text = flood?.name;
-        holder.getLocation()?.text = flood?.location;
+        holder.getLatitude()?.text = flood?.latitude.toString();
+        holder.getLongitude()?.text = flood?.longitude.toString();
         holder.getMagnitude()?.text = flood?.magnitude.toString();
     }
 

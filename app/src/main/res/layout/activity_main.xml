@@ -19,11 +19,20 @@
         android:hint="@string/form_name" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/form_textFieldLocation"
+        android:id="@+id/form_textFieldLongitude"
+        android:inputType="numberDecimal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:hint="@string/form_location" />
+        android:hint="@string/form_longitude" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/form_textFieldLatitude"
+        android:inputType="numberDecimal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:hint="@string/form_latitude" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/form_textFieldMagnitude"
